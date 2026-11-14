@@ -24,8 +24,10 @@ export async function jinaRead(
   targetUrl: string,
   opts: { purpose: string; subject: string; format?: "markdown" | "html"; cacheToleranceSeconds?: number; perRead?: boolean; round?: string; removeSelector?: string },
 ): Promise<{ markdown: string; raw: string; receiptId: number }> {
+  // Reader officially supports unauthenticated, lower-rate access.  A configured key is
+  // still preferred for production quotas, but it must not prevent a small local deployment
+  // from collecting its first public-news briefing.
   const key = credential("collectors", "JINA_API_KEY");
-  if (!key) throw new Error("JINA_API_KEY is not configured");
   const base = (credential("collectors", "JINA_BASE_URL") ?? "https://r.jina.ai").replace(/\/$/, "");
   // A listing whose freshness matters (xAI news) caps how old Jina's cached rendering may be.
   const tolerance: Record<string, string> = Number.isInteger(opts.cacheToleranceSeconds) && opts.cacheToleranceSeconds! >= 0 ? { "x-cache-tolerance": String(opts.cacheToleranceSeconds) } : {};
@@ -37,7 +39,7 @@ export async function jinaRead(
     { service: "jina", model: null, purpose: opts.purpose, subject: opts.subject, identity: { url: targetUrl, day, format: opts.format ?? "markdown", ...read, ...remove }, requestSummary: { url: targetUrl } },
     async () => {
       const res = await guardedFetch(`${base}/${targetUrl}`, {
-        headers: { authorization: `Bearer ${key}`, "x-return-format": opts.format ?? "markdown", accept: "text/plain", ...tolerance, ...remove },
+        headers: { ...(key ? { authorization: `Bearer ${key}` } : {}), "x-return-format": opts.format ?? "markdown", accept: "text/plain", ...tolerance, ...remove },
         timeoutMs: 60_000,
         maxBytes: 6 * 1024 * 1024,
       });
