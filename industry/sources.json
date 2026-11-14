@@ -1,4 +1,41 @@
 {
+  "$comment": "一期使用公开新闻检索作为补充信源；国家市场监管总局、平台规则中心和重点品牌官网在后台逐条验收后再加入。公开展示信息只用于新闻和价格线索，不作为真实日销量。",
+  "sources": [
+    {
+      "id": "rss-water-industry-news",
+      "name": "净水行业公开新闻",
+      "kind": "rss",
+      "config": { "feedUrl": "https://news.google.com/rss/search?q=%E5%87%80%E6%B0%B4%E5%99%A8&hl=zh-CN&gl=CN&ceid=CN:zh-Hans", "_aihot": { "initialBackfillLimit": 20 } },
+      "tier": "T2", "owner_entity_id": null, "participation_mode": "editorial", "interval_minutes": 180,
+      "tags": ["市场趋势"], "site_fulltext": false, "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-water-policy-news",
+      "name": "净水监管与标准公开新闻",
+      "kind": "rss",
+      "config": { "feedUrl": "https://news.google.com/rss/search?q=%E5%87%80%E6%B0%B4%E5%99%A8%20%E6%8A%BD%E6%A3%80%20OR%20%E5%8F%AC%E5%9B%9E%20OR%20%E5%9B%BD%E6%A0%87&hl=zh-CN&gl=CN&ceid=CN:zh-Hans", "_aihot": { "initialBackfillLimit": 20 } },
+      "tier": "T2", "owner_entity_id": null, "participation_mode": "editorial", "interval_minutes": 240,
+      "tags": ["政策/监管"], "site_fulltext": false, "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-water-brands-news",
+      "name": "净水重点品牌公开新闻",
+      "kind": "rss",
+      "config": { "feedUrl": "https://news.google.com/rss/search?q=%28%E7%BE%8E%E7%9A%84%20OR%20%E6%B5%B7%E5%B0%94%20OR%20%E5%AE%89%E5%90%89%E5%B0%94%20OR%20%E5%B0%8F%E7%B1%B3%20OR%20%E6%B2%81%E5%9B%AD%20OR%20%E7%A2%A7%E4%BA%91%E6%B3%89%29%20%E5%87%80%E6%B0%B4%E5%99%A8&hl=zh-CN&gl=CN&ceid=CN:zh-Hans", "_aihot": { "initialBackfillLimit": 20 } },
+      "tier": "T2", "owner_entity_id": null, "participation_mode": "editorial", "interval_minutes": 180,
+      "tags": ["品牌动态"], "site_fulltext": false, "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-water-platform-news",
+      "name": "净水电商平台公开新闻",
+      "kind": "rss",
+      "config": { "feedUrl": "https://news.google.com/rss/search?q=%E5%87%80%E6%B0%B4%E5%99%A8%20%28%E5%A4%A9%E7%8C%AB%20OR%20%E4%BA%AC%E4%B8%9C%20OR%20%E6%8A%96%E9%9F%B3%E7%94%B5%E5%95%86%20OR%20%E6%8B%BC%E5%A4%9A%E5%A4%9A%29&hl=zh-CN&gl=CN&ceid=CN:zh-Hans", "_aihot": { "initialBackfillLimit": 20 } },
+      "tier": "T2", "owner_entity_id": null, "participation_mode": "editorial", "interval_minutes": 180,
+      "tags": ["平台规则"], "site_fulltext": false, "syndicate_fulltext": false
+    }
+  ]
+}
+{
   "$comment": "示范信源：首次启动时导入（scripts/seed.ts），已存在的不会被覆盖。之后在后台“信源”里新建、修改和暂停。字段说明见 docs/customize.md。",
   "sources": [
     {
